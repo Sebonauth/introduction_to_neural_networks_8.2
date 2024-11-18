@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Basics of Forward Propagation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            font-size: 150%;
+        }
+        section {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+        p, h4 {
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 20px;
+        }
+        .vocab-section {
+            background-color: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .vocab-section h4 {
+            color: #000;
+            margin-top: 10px;
+        }
+        .vocab-term {
+            font-weight: bold;
+            color: #1e90ff;
+        }
+        .why-it-matters {
+            background-color: #fffbf0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #333;
+        }
+        .continue-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 15px;
+            color: #ffffff;
+            background-color: #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .continue-button:hover {
+            background-color: #0056b3;
+        }
+        .test-your-knowledge {
+            margin: 20px 0;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .test-your-knowledge h4 {
+            margin-bottom: 10px;
+        }
+        .test-your-knowledge ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .test-your-knowledge li {
+            margin: 10px 0;
+        }
+        .test-your-knowledge button {
+            padding: 10px 20px;
+            color: #ffffff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .test-your-knowledge button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        .test-your-knowledge button:active {
+            background-color: #1e7e34;
+            transform: scale(0.95);
+        }
+        .explanation {
+            display: none;
+            background-color: #eaf5ff;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <section id="section1">
+        <p>At its core, a neural network processes inputs to produce an output. This transformation happens through a series of mathematical operations at each neuron.</p>
+        <div class="continue-button" data-next-section="2">Continue</div>
+    </section>
+
+    <section id="section2">
+        <p>Imagine you're trying to predict the price of a house based on its size, number of bedrooms, and age. Each of these features is an input to our network.</p>
+        <div class="continue-button" data-next-section="3">Continue</div>
+    </section>
+
+    <section id="section3">
+        <p>These inputs are combined using weights and biases to compute a weighted sum, often referred to as \( z \).</p>
+        <div class="vocab-section">
+            <h4>Build Your Vocab</h4>
+            <p><span class="vocab-term">Weighted Sum (\( z \))</span>: The weighted sum is the sum of each input multiplied by its corresponding weight, plus a bias term. It represents the net input to a neuron before the activation function is applied.</p>
+        </div>
+        <div class="continue-button" data-next-section="4">Continue</div>
+    </section>
+
+    <section id="section4">
+        <p>Mathematically, for a single neuron, this is expressed as:</p>
+        <p>\[ z = w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b \]</p>
+        <div class="continue-button" data-next-section="5">Continue</div>
+    </section>
+
+    <section id="section5">
+        <p>Here, \( x_i \) are the inputs, \( w_i \) are the weights, and \( b \) is the bias.</p>
+        <div class="continue-button" data-next-section="6">Continue</div>
+    </section>
+
+    <section id="section6">
+        <p>Once we've calculated \( z \), we apply an activation function to introduce non-linearity into the model.</p>
+        <div class="vocab-section">
+            <h4>Build Your Vocab</h4>
+            <p><span class="vocab-term">Activation Function</span>: An activation function is applied to the weighted sum \( z \) to produce the neuron's output \( a \). It allows the network to capture non-linear relationships.</p>
+        </div>
+        <div class="continue-button" data-next-section="7">Continue</div>
+    </section>
+
+    <section id="section7">
+        <p>The output of the neuron is then:</p>
+        <p>\[ a = \sigma(z) \]</p>
+        <div class="continue-button" data-next-section="8">Continue</div>
+    </section>
+
+    <section id="section8">
+        <p>Where \( \sigma \) represents the activation function, such as sigmoid, ReLU, or tanh.</p>
+        <div class="test-your-knowledge">
+            <h4>Test Your Knowledge</h4>
+            <p>If a neuron has inputs \( x_1 = 2 \), \( x_2 = -1 \), weights \( w_1 = 0.5 \), \( w_2 = 1 \), and bias \( b = -0.5 \), what is the weighted sum \( z \)?</p>
+            <ul>
+                <li><button onclick="showExplanation(1)">\( z = -0.5 \)</button></li>
+                <li><button onclick="showExplanation(2)">\( z = 0.5 \)</button></li>
+                <li><button onclick="showExplanation(3)">\( z = 1 \)</button></li>
+                <li><button onclick="showExplanation(4)">\( z = 0 \)</button></li>
+            </ul>
+            <div id="explanation1" class="explanation">Correct! \( z = (0.5)(2) + (1)(-1) + (-0.5) = -0.5 \).</div>
+            <div id="explanation2" class="explanation">Recalculate using the formula \( z = w_1 x_1 + w_2 x_2 + b \).</div>
+            <div id="explanation3" class="explanation">Recalculate using the formula.</div>
+            <div id="explanation4" class="explanation">Recalculate using the formula.</div>
+        </div>
+        <div class="continue-button" data-next-section="9">Continue</div>
+    </section>
+
+    <section id="section9">
+        <p>Now, applying the activation function to \( z = -0.5 \), we get the neuron's output \( a \). For example, using the sigmoid activation function:</p>
+        <p>\[ a = \sigma(z) = \frac{1}{1 + e^{-z}} \]</p>
+        <div class="continue-button" data-next-section="10">Continue</div>
+    </section>
+
+    <section id="section10">
+        <p>Plugging in \( z = -0.5 \):</p>
+        <p>\[ a = \frac{1}{1 + e^{0.5}} \approx \frac{1}{1 + 1.6487} \approx 0.3775 \]</p>
+        <div class="continue-button" data-next-section="11">Continue</div>
+    </section>
+
+    <section id="section11">
+        <p>So, the neuron's output is approximately 0.3775.</p>
+        <div class="why-it-matters">
+            <p><strong>Why It Matters:</strong> Understanding how forward propagation works mathematically allows us to see how neural networks process inputs and produce outputs. This foundation is essential for comprehending more advanced concepts like backpropagation and network training.</p>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById("section1").style.display = "block";
+        document.getElementById("section1").style.opacity = "1";
+
+        document.addEventListener('click', (event) => {
+            if (event.target.classList.contains('continue-button')) {
+                const nextSectionId = event.target.getAttribute('data-next-section');
+                const nextSection = document.getElementById(`section${nextSectionId}`);
+                event.target.style.display = "none";
+                nextSection.style.display = "block";
+                setTimeout(() => nextSection.style.opacity = "1", 10);
+                setTimeout(() => nextSection.scrollIntoView({ behavior: 'smooth' }), 500);
+            }
+        });
+
+        function showExplanation(id) {
+            document.getElementById(`explanation${id}`).style.display = "block";
+        }
+    </script>
+</body>
+</html>
+
